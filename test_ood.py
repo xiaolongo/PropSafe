@@ -68,17 +68,7 @@ def main(dataset: str, LOAD_ARGS: bool = True, SAVE_INFO: bool = True):
             torch.load(checkpoint, map_location=device, weights_only=True)
         )
 
-        # detect model
-        if args.detection_model == "DualChanEnergy":
-            ood_model = DualChanEnergy(model)
-        elif args.detection_model == "GraphSafe":
-            ood_model = GraphSafe(model)
-        elif args.detection_model == "EPGNN":
-            ood_model = EPGNN(model)
-        elif args.detection_model == "GRASP":
-            ood_model = GRASP(model)
-        else:
-            raise NotImplementedError
+        ood_model = DualChanEnergy(model)
 
         result = evaluate_detect(
             ood_model,
